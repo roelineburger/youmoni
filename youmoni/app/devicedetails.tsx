@@ -1,19 +1,30 @@
 import React from "react";
-import { TextInput, View } from "react-native";
+import { Button, TextInput, View } from "react-native";
 
-import DeviceStatusDropDown from "../src/Components/DeviceStatusDropDown";
-import DeviceManufacturerDropDown from "../src/Components/DeviceManufacturerDropDown";
-import DeviceIdField from "../src/Components/DeviceIdField";
+import DeviceStatusDropDown from "../src/components/DeviceStatusDropDown";
+import DeviceManufacturerDropDown from "../src/components/DeviceManufacturerDropDown";
+import DeviceIdField from "../src/components/DeviceIdField";
+import { useLocalSearchParams } from "expo-router";
 
 const DeviceDetails = () => {
+  const params = useLocalSearchParams();
+  const { data } = params;
+  console.log("data", typeof data);
+  alert(data);
   return (
     <View>
-      <DeviceIdField />
+      <DeviceIdField data={data} />
       <DeviceManufacturerDropDown />
       <DeviceStatusDropDown />
-
       <TextInput placeholder="Model Name" style={{ padding: 50 }} />
       <TextInput placeholder="Customer Name" style={{ padding: 50 }} />
+      {/* Break this out to own Button component */}
+      <Button
+        //onPress={}
+        title="Submit"
+        color="red"
+        accessibilityLabel="Scan QR Code"
+      />
     </View>
   );
 };

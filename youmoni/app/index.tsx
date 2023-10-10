@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Button, Image, Pressable } from "react-native";
-// import YouMoniLogo from "../assets/youmoni-logo.png";
+import YouMoniLogo from "../assets/logo.png";
+import { router } from "expo-router";
 
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { Link } from "expo-router";
@@ -19,10 +20,9 @@ export default function App() {
     getBarCodeScannerPermissions();
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => {
+  const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
-    // redirect to form screen and pass data to that screen and prefill the form
-
+    router.push({ pathname: "devicedetails", params: { data } });
     console.log(data);
   };
 
@@ -41,7 +41,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.centeredContent}>
-        {/* <Image source={YouMoniLogo} /> */}
+        <Image source={YouMoniLogo} />
         <Text style={styles.header}>Welcome to Youmoni</Text>
         <Text style={styles.subheader}>
           We connect your things and bring them online.
@@ -105,5 +105,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
     padding: 20,
+
+    borderRadius: 10,
   },
 });

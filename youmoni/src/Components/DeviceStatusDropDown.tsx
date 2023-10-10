@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Picker } from "@react-native-picker/picker";
 import { Text, TextInput, View } from "react-native";
 // @ts-ignore
-import deviceStatusData from "../Data/deviceStatusData.json";
+import deviceStatusData from "../constants/deviceStatusData.json";
 
 const DeviceStatusDropDown = () => {
   const [deviceStatus, setDeviceStatus] = useState("");
