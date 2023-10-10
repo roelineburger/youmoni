@@ -1,0 +1,5 @@
+[
+  { "label": "In Stock", "value": "In Stock" },
+  { "label": "Assigned", "value": "Assigned" },
+  { "label": "Deployed", "value": "Deployed" }
+]

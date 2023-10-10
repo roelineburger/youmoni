@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button, Image } from "react-native";
-import YouMoniLogo from "./assets/youmoni.png";
+import { Text, View, StyleSheet, Button, Image, Pressable } from "react-native";
+// import YouMoniLogo from "../assets/youmoni-logo.png";
+
 import { BarCodeScanner } from "expo-barcode-scanner";
+import { Link } from "expo-router";
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -39,7 +41,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.centeredContent}>
-        <Image source={YouMoniLogo} />
+        {/* <Image source={YouMoniLogo} /> */}
         <Text style={styles.header}>Welcome to Youmoni</Text>
         <Text style={styles.subheader}>
           We connect your things and bring them online.
@@ -53,6 +55,14 @@ export default function App() {
           color="#fff"
           accessibilityLabel="Scan QR Code"
         />
+      </View>
+      {/* this needs to be removed */}
+      <View style={styles.buttonContainer}>
+        <Link href="/devicedetails" asChild>
+          <Pressable>
+            <Text>Device Details</Text>
+          </Pressable>
+        </Link>
       </View>
 
       {barcodeScannerVisible && (
