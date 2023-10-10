@@ -23,7 +23,6 @@ export default function App() {
   const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
     router.push({ pathname: "devicedetails", params: { data } });
-    console.log(data);
   };
 
   const toggleBarcodeScanner = () => {
