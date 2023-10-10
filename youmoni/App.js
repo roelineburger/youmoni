@@ -19,8 +19,9 @@ export default function App() {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
+    // redirect to form screen and pass data to that screen and prefill the form
+
     console.log(data);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
   };
 
   const toggleBarcodeScanner = () => {
