@@ -1,28 +1,32 @@
 import React, { useState } from "react";
-import { Button, TextInput, View, Text, StyleSheet } from "react-native";
+import {
+  TextInput,
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Pressable,
+} from "react-native";
 
 import DeviceStatusDropDown from "../src/components/DeviceStatusDropDown";
+
 import DeviceManufacturerDropDown from "../src/components/DeviceManufacturerDropDown";
 import DeviceIdField from "../src/components/DeviceIdField";
 import { useLocalSearchParams } from "expo-router";
 
-// // @ts-ignore
 import deviceManufacturerData from "../src/constants/deviceManufacturerData.json";
 import deviceStatusData from "../src/constants/deviceStatusData.json";
 
 import { Dropdown } from "react-native-element-dropdown";
+import CustomButton from "../src/components/Button";
 
 const DeviceDetails = () => {
-  //const [value, setValue] = useState(null);
-  const [isFocus, setIsFocus] = useState(false);
-  const [deviceManufacturer, setDeviceManufacturer] = useState("");
-
-  const [deviceStatus, setDeviceStatus] = useState("");
-  const [modelName, setModelName] = useState("");
-  const [customerName, setCustomerName] = useState("");
+  const [deviceManufacturer, setDeviceManufacturer] = useState<string>("");
+  const [deviceStatus, setDeviceStatus] = useState<string>("");
+  const [modelName, setModelName] = useState<string>("");
+  const [customerName, setCustomerName] = useState<string>("");
   const params = useLocalSearchParams();
   const { data } = params;
-  const [value, setValue] = useState(null);
 
   const handleSubmit = () => {
     alert(
@@ -30,58 +34,65 @@ const DeviceDetails = () => {
     );
   };
 
-  const dropDownLabels = ["Device Manufacturer", "Device Status"];
-
-  const renderLabel = () => {
-    if (deviceManufacturer || isFocus) {
-      return (
-        <Text style={[styles.label, isFocus && { color: "blue" }]}>
-          Device Manufacturer
-        </Text>
-      );
-    }
-    return null;
-  };
-
   return (
     <View style={styles.container}>
-      {renderLabel()}
+      <Image
+        source={require("../assets/logo.png")}
+        style={styles.logo}
+        resizeMode="contain"
+      />
+
+      <Text style={styles.label}>Scanned Device ID</Text>
+      <TextInput
+        style={{ ...styles.input, ...styles.scanInputText }}
+        value={data.toString()}
+      />
+
+      <Text style={styles.label}>Device Manufacturer</Text>
       <Dropdown
-        style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
-        placeholderStyle={styles.placeholderStyle}
-        selectedTextStyle={styles.selectedTextStyle}
-        inputSearchStyle={styles.inputSearchStyle}
-        iconStyle={styles.iconStyle}
+        style={styles.input}
         data={deviceManufacturerData}
         maxHeight={300}
         labelField="label"
         valueField="value"
-        placeholder={!isFocus ? "Select Device Manufacturer" : "..."}
+        placeholder={"Device Manufacturer"}
         value={deviceManufacturer}
-        onFocus={() => setIsFocus(true)}
-        onBlur={() => setIsFocus(false)}
+        placeholderStyle={styles.placeholderStyle}
         onChange={(item) => {
           setDeviceManufacturer(item.value);
-          setIsFocus(false);
         }}
       />
+
+      <Text style={styles.label}>Device Status</Text>
+      <Dropdown
+        style={styles.input}
+        data={deviceStatusData}
+        maxHeight={300}
+        labelField="label"
+        valueField="value"
+        placeholder="Device Status"
+        value={deviceStatus}
+        placeholderStyle={styles.placeholderStyle}
+        onChange={(item) => {
+          setDeviceStatus(item.value);
+        }}
+      />
+
+      <Text style={styles.label}>Model Name</Text>
       <TextInput
         placeholder="Model Name"
-        style={{ padding: 50 }}
+        style={styles.input}
         onChangeText={(text) => setModelName(text)}
       />
+
+      <Text style={styles.label}>Customer Name</Text>
       <TextInput
         placeholder="Customer Name"
-        style={{ padding: 50 }}
+        style={styles.input}
         onChangeText={(text) => setCustomerName(text)}
       />
-      {/* Break this out to own Button component */}
-      <Button
-        onPress={handleSubmit}
-        title="Submit"
-        color="red"
-        accessibilityLabel="Scan QR Code"
-      />
+
+      <CustomButton buttonText="Submit" onPress={handleSubmit} />
     </View>
   );
 };
@@ -90,40 +101,43 @@ export default DeviceDetails;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "white",
     padding: 16,
+    gap: 16,
   },
-  dropdown: {
+  logo: {
+    width: "100%",
+    marginBottom: 20,
+  },
+  input: {
     height: 50,
     borderColor: "gray",
     borderWidth: 0.5,
     borderRadius: 8,
     paddingHorizontal: 8,
+    fontSize: 16,
   },
-  icon: {
-    marginRight: 5,
+  scanInputText: {
+    color: "gray",
   },
+
   label: {
-    position: "absolute",
-    backgroundColor: "white",
-    left: 22,
-    top: 8,
-    zIndex: 999,
-    paddingHorizontal: 8,
-    fontSize: 14,
+    marginLeft: 4,
+  },
+
+  button: {
+    width: "100%",
+    backgroundColor: "#FF5A3F",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 20,
+    padding: 20,
+    borderRadius: 10,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 18,
   },
   placeholderStyle: {
-    fontSize: 16,
-  },
-  selectedTextStyle: {
-    fontSize: 16,
-  },
-  iconStyle: {
-    width: 20,
-    height: 20,
-  },
-  inputSearchStyle: {
-    height: 40,
-    fontSize: 16,
+    color: "gray",
   },
 });

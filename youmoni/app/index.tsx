@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button, Image, Pressable } from "react-native";
-import YouMoniLogo from "../assets/logo.png";
+import { Text, View, StyleSheet, Button, Image } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
 import { router } from "expo-router";
 
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { Link } from "expo-router";
+import CustomButton from "../src/components/Button";
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -38,31 +40,20 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.centeredContent}>
-        <Image source={YouMoniLogo} />
-        <Text style={styles.header}>Welcome to Youmoni</Text>
-        <Text style={styles.subheader}>
+        <Image
+          source={require("../assets/logo.png")}
+          style={styles.logo}
+          resizeMode="contain"
+        />
+        <Text style={styles.header}>
           We connect your things and bring them online.
         </Text>
+        <Text style={styles.subheader}></Text>
       </View>
 
-      <View style={styles.buttonContainer}>
-        <Button
-          onPress={toggleBarcodeScanner}
-          title="Scan QR Code"
-          color="#fff"
-          accessibilityLabel="Scan QR Code"
-        />
-      </View>
-      {/* this needs to be removed */}
-      <View style={styles.buttonContainer}>
-        <Link href="/devicedetails" asChild>
-          <Pressable>
-            <Text>Device Details</Text>
-          </Pressable>
-        </Link>
-      </View>
+      <CustomButton buttonText="Scan Code" onPress={toggleBarcodeScanner} />
 
       {barcodeScannerVisible && (
         <BarCodeScanner
@@ -73,7 +64,7 @@ export default function App() {
       {scanned && (
         <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
       )}
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -81,6 +72,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-end",
+    margin: 16,
   },
   centeredContent: {
     flex: 1,
@@ -88,7 +80,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   header: {
-    fontSize: 24,
+    fontSize: 20,
     marginBottom: 20,
     textAlign: "center",
   },
@@ -104,7 +96,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
     padding: 20,
-
     borderRadius: 10,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 18,
+  },
+  logo: {
+    width: "80%",
+    paddingBottom: 200,
   },
 });
