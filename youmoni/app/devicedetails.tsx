@@ -5,20 +5,17 @@ import {
   Text,
   StyleSheet,
   Image,
-  Pressable,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
 } from "react-native";
-
-import DeviceStatusDropDown from "../src/components/DeviceStatusDropDown";
-
-import DeviceManufacturerDropDown from "../src/components/DeviceManufacturerDropDown";
-import DeviceIdField from "../src/components/DeviceIdField";
+import CustomInput from "../src/components/Input";
 import { useLocalSearchParams } from "expo-router";
-
 import deviceManufacturerData from "../src/constants/deviceManufacturerData.json";
 import deviceStatusData from "../src/constants/deviceStatusData.json";
-
 import { Dropdown } from "react-native-element-dropdown";
 import CustomButton from "../src/components/Button";
+import CustomDropDown from "../src/components/DropDown";
 
 const DeviceDetails = () => {
   const [deviceManufacturer, setDeviceManufacturer] = useState<string>("");
@@ -35,65 +32,62 @@ const DeviceDetails = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Image
-        source={require("../assets/logo.png")}
-        style={styles.logo}
-        resizeMode="contain"
-      />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "height" : "height"}
+    >
+      <ScrollView style={{ paddingBottom: 100 }}>
+        <View style={styles.container}>
+          <Image
+            source={require("../assets/logo.png")}
+            style={styles.logo}
+            resizeMode="contain"
+          />
 
-      <Text style={styles.label}>Scanned Device ID</Text>
-      <TextInput
-        style={{ ...styles.input, ...styles.scanInputText }}
-        value={data.toString()}
-      />
+          <CustomInput
+            label="Scanned Device ID"
+            value={data.toString()}
+            scanInput
+          />
 
-      <Text style={styles.label}>Device Manufacturer</Text>
-      <Dropdown
-        style={styles.input}
-        data={deviceManufacturerData}
-        maxHeight={300}
-        labelField="label"
-        valueField="value"
-        placeholder={"Device Manufacturer"}
-        value={deviceManufacturer}
-        placeholderStyle={styles.placeholderStyle}
-        onChange={(item) => {
-          setDeviceManufacturer(item.value);
-        }}
-      />
+          <CustomDropDown
+            label="Device Manufacturer"
+            data={deviceManufacturerData}
+            placeholder="Device Manufacturer"
+            value={deviceManufacturer}
+            onChange={(item) => {
+              setDeviceManufacturer(item.value);
+            }}
+          />
 
-      <Text style={styles.label}>Device Status</Text>
-      <Dropdown
-        style={styles.input}
-        data={deviceStatusData}
-        maxHeight={300}
-        labelField="label"
-        valueField="value"
-        placeholder="Device Status"
-        value={deviceStatus}
-        placeholderStyle={styles.placeholderStyle}
-        onChange={(item) => {
-          setDeviceStatus(item.value);
-        }}
-      />
+          <CustomDropDown
+            label="Device Status"
+            data={deviceStatusData}
+            placeholder="Device Status"
+            value={deviceStatus}
+            onChange={(item) => {
+              setDeviceStatus(item.value);
+            }}
+          />
 
-      <Text style={styles.label}>Model Name</Text>
-      <TextInput
-        placeholder="Model Name"
-        style={styles.input}
-        onChangeText={(text) => setModelName(text)}
-      />
+          <CustomInput
+            label="Model Name"
+            placeholder="Model Name"
+            value={modelName}
+            onChangeText={setModelName}
+          />
 
-      <Text style={styles.label}>Customer Name</Text>
-      <TextInput
-        placeholder="Customer Name"
-        style={styles.input}
-        onChangeText={(text) => setCustomerName(text)}
-      />
-
-      <CustomButton buttonText="Submit" onPress={handleSubmit} />
-    </View>
+          <CustomInput
+            label="Customer Name"
+            placeholder="Customer Name"
+            value={customerName}
+            onChangeText={setCustomerName}
+          />
+          <View style={styles.buttonContainer}>
+            <CustomButton buttonText="Submit" onPress={handleSubmit} />
+          </View>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -102,7 +96,7 @@ export default DeviceDetails;
 const styles = StyleSheet.create({
   container: {
     padding: 16,
-    gap: 16,
+    display: "flex",
   },
   logo: {
     width: "100%",
@@ -115,15 +109,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 8,
     fontSize: 16,
+    margin: 0,
+    marginBottom: 20,
   },
-  scanInputText: {
-    color: "gray",
-  },
-
   label: {
     marginLeft: 4,
+    marginBottom: 8,
   },
-
   button: {
     width: "100%",
     backgroundColor: "#FF5A3F",
@@ -139,5 +131,8 @@ const styles = StyleSheet.create({
   },
   placeholderStyle: {
     color: "gray",
+  },
+  buttonContainer: {
+    marginTop: 20,
   },
 });

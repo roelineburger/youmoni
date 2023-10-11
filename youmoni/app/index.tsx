@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Button, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
 import { router } from "expo-router";
-
 import { BarCodeScanner } from "expo-barcode-scanner";
-import { Link } from "expo-router";
 import CustomButton from "../src/components/Button";
+import { RootSiblingParent } from "react-native-root-siblings";
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -40,31 +38,36 @@ export default function App() {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.centeredContent}>
-        <Image
-          source={require("../assets/logo.png")}
-          style={styles.logo}
-          resizeMode="contain"
-        />
-        <Text style={styles.header}>
-          We connect your things and bring them online.
-        </Text>
-        <Text style={styles.subheader}></Text>
-      </View>
+    <RootSiblingParent>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.centeredContent}>
+          <Image
+            source={require("../assets/logo.png")}
+            style={styles.logo}
+            resizeMode="contain"
+          />
+          <Text style={styles.header}>
+            We connect your things and bring them online.
+          </Text>
+          <Text style={styles.subheader}></Text>
+        </View>
 
-      <CustomButton buttonText="Scan Code" onPress={toggleBarcodeScanner} />
+        <CustomButton buttonText="Scan Code" onPress={toggleBarcodeScanner} />
 
-      {barcodeScannerVisible && (
-        <BarCodeScanner
-          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-          style={StyleSheet.absoluteFillObject}
-        />
-      )}
-      {scanned && (
-        <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
-      )}
-    </SafeAreaView>
+        {barcodeScannerVisible && (
+          <BarCodeScanner
+            onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+            style={StyleSheet.absoluteFillObject}
+          />
+        )}
+        {scanned && (
+          <Button
+            title={"Tap to Scan Again"}
+            onPress={() => setScanned(false)}
+          />
+        )}
+      </SafeAreaView>
+    </RootSiblingParent>
   );
 }
 
