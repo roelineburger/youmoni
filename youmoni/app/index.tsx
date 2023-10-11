@@ -49,11 +49,8 @@ export default function App() {
           <Text style={styles.header}>
             We connect your things and bring them online.
           </Text>
-          <Text style={styles.subheader}></Text>
         </View>
-
         <CustomButton buttonText="Scan Code" onPress={toggleBarcodeScanner} />
-
         {barcodeScannerVisible && (
           <BarCodeScanner
             onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
@@ -86,24 +83,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 20,
     textAlign: "center",
-  },
-  subheader: {
-    fontSize: 18,
-    marginBottom: 20,
-    textAlign: "center",
-  },
-  buttonContainer: {
-    width: "100%",
-    backgroundColor: "#FF5A3F",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 20,
-    padding: 20,
-    borderRadius: 10,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 18,
   },
   logo: {
     width: "80%",

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import {
-  TextInput,
   View,
-  Text,
   StyleSheet,
   Image,
   KeyboardAvoidingView,
@@ -13,7 +11,6 @@ import CustomInput from "../src/components/Input";
 import { useLocalSearchParams } from "expo-router";
 import deviceManufacturerData from "../src/constants/deviceManufacturerData.json";
 import deviceStatusData from "../src/constants/deviceStatusData.json";
-import { Dropdown } from "react-native-element-dropdown";
 import CustomButton from "../src/components/Button";
 import CustomDropDown from "../src/components/DropDown";
 
@@ -42,13 +39,11 @@ const DeviceDetails = () => {
             style={styles.logo}
             resizeMode="contain"
           />
-
           <CustomInput
             label="Scanned Device ID"
             value={data.toString()}
             scanInput
           />
-
           <CustomDropDown
             label="Device Manufacturer"
             data={deviceManufacturerData}
@@ -58,7 +53,6 @@ const DeviceDetails = () => {
               setDeviceManufacturer(item.value);
             }}
           />
-
           <CustomDropDown
             label="Device Status"
             data={deviceStatusData}
@@ -68,14 +62,12 @@ const DeviceDetails = () => {
               setDeviceStatus(item.value);
             }}
           />
-
           <CustomInput
             label="Model Name"
             placeholder="Model Name"
             value={modelName}
             onChangeText={setModelName}
           />
-
           <CustomInput
             label="Customer Name"
             placeholder="Customer Name"
@@ -101,36 +93,6 @@ const styles = StyleSheet.create({
   logo: {
     width: "100%",
     marginBottom: 20,
-  },
-  input: {
-    height: 50,
-    borderColor: "gray",
-    borderWidth: 0.5,
-    borderRadius: 8,
-    paddingHorizontal: 8,
-    fontSize: 16,
-    margin: 0,
-    marginBottom: 20,
-  },
-  label: {
-    marginLeft: 4,
-    marginBottom: 8,
-  },
-  button: {
-    width: "100%",
-    backgroundColor: "#FF5A3F",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 20,
-    padding: 20,
-    borderRadius: 10,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 18,
-  },
-  placeholderStyle: {
-    color: "gray",
   },
   buttonContainer: {
     marginTop: 20,
