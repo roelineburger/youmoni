@@ -8,7 +8,7 @@ This is a basic React Native app with Expo, providing the functionality of scann
 
 ## Installation
 
-Clone this repository and install the dependencies:
+Clone this repository and install the dependencies by following these steps:
 
 ### `cd into the youmoni folder`
 
