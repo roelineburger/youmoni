@@ -1,4 +1,3 @@
-// InputField.js
 import React from "react";
 import { Text, TextInput, View, StyleSheet } from "react-native";
 
