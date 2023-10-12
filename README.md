@@ -18,7 +18,7 @@ Once the dependencies are installed, run the server:
 
 ### `npm start`
 
-Ensure you have Expo Go installed on your mobile.
+Ensure you have the Expo Go app installed on your mobile.
 
 Scan the barcode in the terminal using your mobile camera and open the app in Expo Go.
 
