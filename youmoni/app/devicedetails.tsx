@@ -7,12 +7,12 @@ import {
   Platform,
   ScrollView,
 } from "react-native";
-import CustomInput from "../src/components/Input";
+import CustomInput from "../src/Components/Input";
 import { useLocalSearchParams } from "expo-router";
 import deviceManufacturerData from "../src/constants/deviceManufacturerData.json";
 import deviceStatusData from "../src/constants/deviceStatusData.json";
-import CustomButton from "../src/components/Button";
-import CustomDropDown from "../src/components/DropDown";
+import CustomButton from "../src/Components/Button";
+import CustomDropDown from "../src/Components/DropDown";
 
 const DeviceDetails = () => {
   const [deviceManufacturer, setDeviceManufacturer] = useState<string>("");
