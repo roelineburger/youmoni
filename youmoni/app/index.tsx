@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, Button, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { BarCodeScanner } from "expo-barcode-scanner";
-import CustomButton from "../src/components/Button";
+import CustomButton from "../src/Components/Button";
 import { RootSiblingParent } from "react-native-root-siblings";
 
 export default function App() {
